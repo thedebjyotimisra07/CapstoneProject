@@ -40,14 +40,14 @@ def main():
     with socket.socket(socket.AF_INET, socket.SOCK_STREAM) as s:
         s.connect((HOST, PORT))
 
-        # 1) Receive session key
+        
         key = recv_with_len(s)
         if not key:
             print("[-] Failed to receive encryption key.")
             return
         fernet = Fernet(key)
 
-        # 2) Authenticate
+        
         username = input("Username: ")
         password = getpass.getpass("Password: ")
         send_with_len(s, f"{username},{password}".encode())
@@ -58,7 +58,7 @@ def main():
             return
         print("[+] Authenticated successfully.")
 
-        # 3) Interactive loop
+        
         while True:
             print("\nOptions:")
             print("1 - List files on server")
@@ -126,3 +126,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
